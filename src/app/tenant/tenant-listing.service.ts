@@ -26,9 +26,10 @@ export class TenantListingService {
     new Subject<State<Page<CardListing>>>();
   search = this.search$.asObservable();
 
-  constructor() { }
+  constructor() {
+  }
 
-  getAllByCategory(pageRequest: Pagination, category: CategoryName) : void {
+  getAllByCategory(pageRequest: Pagination, category: CategoryName): void {
     let params = createPaginationOption(pageRequest);
     params = params.set("category", category);
     this.http.get<Page<CardListing>>(`${environment.API_URL}/tenant-listing/get-all-by-category`, {params})
@@ -41,6 +42,19 @@ export class TenantListingService {
 
   resetGetAllCategory(): void {
     this.getAllByCategory$.set(State.Builder<Page<CardListing>>().forInit())
+  }
+
+  getOneByPublicId(publicId: string): void {
+    const params = new HttpParams().set("publicId", publicId);
+    this.http.get<Listing>(`${environment.API_URL}/tenant-listing/get-one`, {params})
+      .subscribe({
+        next: listing => this.getOneByPublicId$.set(State.Builder<Listing>().forSuccess(listing)),
+        error: err => this.getOneByPublicId$.set(State.Builder<Listing>().forError(err)),
+      });
+  }
+
+  resetGetOneByPublicId(): void {
+    this.getOneByPublicId$.set(State.Builder<Listing>().forInit())
   }
 
 }

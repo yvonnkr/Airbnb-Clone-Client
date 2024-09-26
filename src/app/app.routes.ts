@@ -3,6 +3,7 @@ import {PropertiesComponent} from "./landlord/properties/properties.component";
 import {authorityRouteAccess} from "./core/auth/authority-route-access";
 import {HomeComponent} from "./home/home.component";
 import {DisplayListingComponent} from "./display-listing/display-listing.component";
+import {PageNotFoundComponent} from "./core/page-not-found/page-not-found.component";
 
 export const routes: Routes = [
   {
@@ -21,4 +22,8 @@ export const routes: Routes = [
     path: 'listing',
     component: DisplayListingComponent
   },
+  {
+    path: "**",
+    component: PageNotFoundComponent
+  }
 ];

@@ -4,6 +4,7 @@ import {authorityRouteAccess} from "./core/auth/authority-route-access";
 import {HomeComponent} from "./home/home.component";
 import {DisplayListingComponent} from "./display-listing/display-listing.component";
 import {PageNotFoundComponent} from "./core/page-not-found/page-not-found.component";
+import {BookedListingComponent} from "./tenant/booked-listing/booked-listing.component";
 
 export const routes: Routes = [
   {
@@ -21,6 +22,10 @@ export const routes: Routes = [
   {
     path: 'listing',
     component: DisplayListingComponent
+  },
+  {
+    path: "booking",
+    component: BookedListingComponent
   },
   {
     path: "**",

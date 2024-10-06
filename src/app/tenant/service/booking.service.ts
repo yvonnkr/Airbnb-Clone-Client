@@ -27,6 +27,9 @@ export class BookingService {
   private cancel$: WritableSignal<State<string>>
     = signal(State.Builder<string>().forInit());
   cancelSig = computed(() => this.cancel$());
+  private getBookedListingForLandlord$: WritableSignal<State<Array<BookedListing>>>
+    = signal(State.Builder<Array<BookedListing>>().forInit());
+  getBookedListingForLandlordSig = computed(() => this.getBookedListingForLandlord$());
 
   create(newBooking: CreateBooking) {
     this.http.post<boolean>(`${environment.API_URL}/booking/create`, newBooking)
@@ -89,6 +92,15 @@ export class BookingService {
 
   resetCancel(): void {
     this.cancel$.set(State.Builder<string>().forInit());
+  }
+
+  getBookedListingForLandlord(): void {
+    this.http.get<Array<BookedListing>>(`${environment.API_URL}/booking/get-booked-listing-for-landlord`)
+      .subscribe({
+        next: bookedListings =>
+          this.getBookedListingForLandlord$.set(State.Builder<Array<BookedListing>>().forSuccess(bookedListings)),
+        error: err => this.getBookedListingForLandlord$.set(State.Builder<Array<BookedListing>>().forError(err)),
+      });
   }
 
 }

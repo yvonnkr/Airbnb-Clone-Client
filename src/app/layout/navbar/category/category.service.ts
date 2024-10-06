@@ -81,12 +81,6 @@ export class CategoryService {
       activated: false
     },
     {
-      icon: "fire",
-      displayName: "Campers",
-      technicalName: "CAMPERS",
-      activated: false
-    },
-    {
       icon: "snowflake",
       displayName: "Artic",
       technicalName: "ARTIC",
